@@ -47,7 +47,7 @@ public class MyArray {
     public String toString() {
         StringBuilder str = new StringBuilder();
         str.append("[");
-        for (int i = 0; i < currentIndex; i++) {
+        for (int i = 0; i < items.length; i++) {
             str.append(items[i]).append(", ");
 
         }
