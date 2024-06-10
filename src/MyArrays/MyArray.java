@@ -20,14 +20,27 @@ public class MyArray {
 
     public int indexOfValue(int value) {
         for (int i = 0; i < this.currentIndex; i++) {
-            if(this.items[i]== value){
-                
+            if (this.items[i] == value) {
+
                 return i;
 
             }
 
         }
         return -1;
+    }
+
+    public void removeAt(int index) {
+        if (index >= this.currentIndex) {
+            throw new IndexOutOfBoundsException();
+
+        }
+        for (int i = index; i <= this.currentIndex - 2; i++) {
+            this.items[i] = this.items[i + 1];
+
+        }
+        currentIndex--;
+        this.items[currentIndex] = 0;
     }
 
     @Override
