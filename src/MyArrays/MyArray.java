@@ -1,21 +1,39 @@
 package MyArrays;
 
+import java.util.Arrays;
+
 public class MyArray {
-    private final int[] items;
+    private int[] items;
     private int currentIndex;
 
-    public MyArray(int initialSize) {
-        this.items = new int[initialSize];
-        this.currentIndex = 0;
+    public MyArray() {
+        this.items = new int[10];
+
+    }
+
+    public int getCurrentIndex() {
+        return this.currentIndex;
     }
 
     public void insert(int value) {
+        if (currentIndex == items.length) {
+            int[] temp = new int[items.length * 2];
+            System.arraycopy(items, 0, temp, 0, currentIndex);
+//            for(int i=0;i<currentIndex;i++){
+//                temp[i]=items[i];
+//            }
+            items = temp;
+        }
         this.items[currentIndex] = value;
         currentIndex++;
     }
 
     int getValue(int index) {
         return items[index];
+    }
+
+    int getLength() {
+        return items.length;
     }
 
     public int indexOfValue(int value) {
@@ -43,6 +61,38 @@ public class MyArray {
         this.items[currentIndex] = 0;
     }
 
+    public int max() {
+        int result = this.items[0];
+        for (int i = 1; i < currentIndex; i++) {
+            if (items[i] > result) {
+                result = items[i];
+            }
+        }
+        return result;
+    }
+
+    public int min() {
+        int result = this.items[0];
+        for (int i = 1; i < currentIndex; i++) {
+            if (items[i] < result) {
+                result = items[i];
+            }
+        }
+        return result;
+    }
+
+    public void reverse() {
+        int i = 0;
+        int j = currentIndex - 1;
+        while (i < j) {
+            int temp = items[i];
+            items[i] = items[j];
+            items[j] = temp;
+            i++;
+            j--;
+        }
+    }
+
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
@@ -55,4 +105,5 @@ public class MyArray {
         return str.toString();
 
     }
+
 }
