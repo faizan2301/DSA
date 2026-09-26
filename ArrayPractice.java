@@ -6,7 +6,8 @@ public class ArrayPractice {
   // Remove duplicates from the array
   static int[] nums = { 1, 2, 3, 3, 4, 5, 5 }; // 1 2 3 4 5 6
   static int[] stocks = { 7, 1, 5, 3, 6, 4 };
-  static int[] numbers = { 1, 2, 3, 4, 5, 6 };
+  static int[] numbers = { 1, 2, 3, 4, 5, 6, 7 };
+  static int[] numbers1 = { -1, -100, 3, 99 };
 
   public static void main(String[] args) {
 
@@ -14,6 +15,7 @@ public class ArrayPractice {
     int maxProfit = calculateMaxProfit(stocks);
     int maxProfit2 = calculateMaxProfit2(stocks);
     rotate(numbers, 3);
+    cyclicRotate(numbers1, 2);
     System.out.println("value " + value);
     System.out.println("maxProfit " + maxProfit);
     System.out.println("maxProfit2 " + maxProfit2);
@@ -21,7 +23,7 @@ public class ArrayPractice {
 
   // https://leetcode.com/problems/remove-duplicates-from-sorted-array/
   // 1, 2, 3, 3, 4, 5, 5
-  //    2!=1
+  // 2!=1
   static int removeDuplicatesFromSortedArray(int[] nums) {
     int k = 1;
     for (int j = 1; j < nums.length; j++) { // T: O(n)
@@ -96,10 +98,43 @@ public class ArrayPractice {
       return;
     }
     k = k % n;
-    System.out.println("K "+k+" "+k % n);
+    System.out.println("K " + k + " " + k % n);
     rev(nums, 0, n - 1); // T: O(n) S: O(1)
     rev(nums, 0, k - 1);
     rev(nums, k - 1, n - 1);
+  }
+
+  public static void cyclicRotate(int[] nums, int k) {
+    // [1,2,3,4,5,6,7], k = 3
+    // 3, -100, -1, 99 k=2
+    int n = nums.length;
+
+    // while (index <= n) {
+    // int next = nums[(index + k) % n];
+    // System.out.println(next + " next");
+    // nums[(index + k) % n] = current;
+    // current = next;
+    // index = (index + k) % n;
+    // System.out.println(index + " index");
+    // if (index == 0) {
+    // break;
+    // }
+    // }
+    int count = 0;
+    for (int i = 0; count < n; i++) {
+      int index = i;
+      int current = nums[index];
+      do {
+        int next = nums[(index + k) % n];
+        nums[(index + k) % n] = current;
+        current = next;
+        index = (index + k) % n;
+        count++;
+      } while (index != i);
+    }
+
+    System.out.println("cyclicRotate " + Arrays.toString(Arrays.copyOf(nums,
+        nums.length)));
   }
 
 }
